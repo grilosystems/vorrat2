@@ -44,6 +44,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom scripts for this page-->
     <script src="<?= base_url(); ?>guithem/js/sb-admin-datatables.min.js"></script>
     <script src="<?= base_url(); ?>guithem/js/sb-admin-charts.min.js"></script>
+    <!-- Angular JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
   </div>
 </body>
 

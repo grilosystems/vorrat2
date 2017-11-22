@@ -23,10 +23,43 @@ class Usuario extends CI_Model {
         $usuarioFind = $qry->row_array();
 
         if($usuarioFind['cuenta'] === $this->cuenta) $encontrado = true;
-
-        //var_dump(print_r($usuarioFind,1)); die();
         
     	return $encontrado;
+    }
+
+    public function searchUsuarioById($id_user)
+    {
+
+    }
+
+    public function getUsuarioByCuenta($usuario)
+    {
+        $this->cuenta = $usuario;
+
+        $qry = $this->db->get_where($this->tabla, array('cuenta'=>$this->cuenta));
+        $usuario = $qry->row_array();
+
+        return $usuario;
+    }
+
+    public function getAllUsuarios()
+    {
+        
+    }
+
+    public function updateUsuario($id_user, $data_field)
+    {
+        
+    }
+
+    public function deleteUsuario($id_user)
+    {
+
+    }
+
+    public function addUsuario($data_usuario)
+    {
+
     }
 
 }

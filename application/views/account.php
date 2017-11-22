@@ -14,6 +14,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-12">
           <h1>Movimientos Actuales</h1>
           <p>Aquí se presentan los movimientos mas recientes del almacén.</p>
+
+          <div ng-app="">
+            <p>Nombre : <input type="text" ng-model="name"></p>
+            <h1>Hola {{name}}</h1>
+          </div>
+
         </div>
       </div>
     </div>

@@ -14,16 +14,8 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('head');
 		$this->load->view('login');
-		$this->load->view('footer');
 	}
 
-	public function login($emailUser, $passwordUser)
-	{
-		if(!is_null($emailUser) && !is_null($passwordUser)){
-			if($this->Usuario->searchUsuario($emailUser)) 
-				redirect('welcome/accountUser', 'refresh');
-			else
-				redirect('http://www.grilosystems.com.mx', 'refresh');
 		}
 	}
 
