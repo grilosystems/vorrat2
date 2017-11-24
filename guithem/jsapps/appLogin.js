@@ -29,7 +29,7 @@ app.controller('sign_in', function($scope, $http) {
 			method: "POST",
 			url: linkUrl,
 		}).then( function(response){
-			alert(response.data);
+			window.location = response.data;
 		});
 	}
 

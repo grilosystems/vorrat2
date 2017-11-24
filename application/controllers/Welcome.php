@@ -65,7 +65,7 @@ class Welcome extends CI_Controller {
 				echo $response;
 				break;
 			case '1':
-				echo 'registrar cuenta';
+				echo 'index.php/welcome/newAccount/';
 				break;
 			case '2':
 				echo 'index.php/welcome/recoverPassword/';
@@ -111,6 +111,12 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('head');
 		$this->load->view('forgotpassword');	
+	}
+
+	public function newAccount()
+	{
+		$this->load->view('head');
+		$this->load->view('registeraccount');	
 	}
 
 }
