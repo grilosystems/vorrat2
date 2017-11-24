@@ -22,11 +22,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
           </div>
           <a class="btn btn-primary btn-block" href="" ng-click="check_credentials();">Login</a>
+          <div class="text-center">
+            <a class="d-block small mt-3" href="" ng-click="create_account();">Registrar una Cuenta</a>
+            <a class="d-block small" href="" ng-click="recover_account();">Recuperar Password?</a>
+          </div>
         </form>
-        <div class="text-center">
-          <a class="d-block small mt-3" href="register.html">Registrar una Cuenta</a>
-          <a class="d-block small" href="forgot-password.html">Recuperar Password?</a>
-        </div>
       </div>
     </div>
   </div>

@@ -10,11 +10,9 @@ app.controller('sign_in', function($scope, $http) {
 			url: linkUrl,
 			data: datos,
 			headers: {'Content-Type':'application/x-www-form-urlencoded'}
-		}).then(
-			function(response){
+		}).then( function(response){
 				var mensaje = $('#message').text();
 				if(response.data.findUser) {
-					//$('#message').text(mensaje + ' - ' + response.data.email);
 					window.location = response.data.access + response.data.uri;
 				} else {
 					$('#message').text(mensaje + ' - ' + response.data.error);
@@ -23,6 +21,25 @@ app.controller('sign_in', function($scope, $http) {
 			function error(response) {
 				alert('Error' + response);
 		});
+	}
 
+	$scope.create_account = function() {
+		var linkUrl = window.location.href + "index.php/welcome/login/1";
+		$http({
+			method: "POST",
+			url: linkUrl,
+		}).then( function(response){
+			alert(response.data);
+		});
+	}
+
+	$scope.recover_account = function() {
+		var linkUrl = window.location.href + "index.php/welcome/login/2";
+		$http({
+			method: "POST",
+			url: linkUrl,
+		}).then( function(response){
+			window.location = response.data;
+		});
 	}
 });

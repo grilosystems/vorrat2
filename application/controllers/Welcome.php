@@ -24,45 +24,58 @@ class Welcome extends CI_Controller {
 		$this->load->view('login');
 	}
 
-	public function login()
+	public function login($solicitud=null)
 	{	
-		$postdata = file_get_contents("php://input");
-	    $request = json_decode($postdata);
-	    $email = $request->user;
-	    $pass = $request->pass;
+		switch ($solicitud) {
+			case null:
+				$postdata = file_get_contents("php://input");
+			    $request = json_decode($postdata);
+			    $email = $request->user;
+			    $pass = $request->pass;
 
-	    $data_usuario = array(
-	    		'findUser'=>false,
-	    		'error'=>'No se encuentra el usuario: '.$email
-	    );
+			    $data_usuario = array(
+			    		'findUser'=>false,
+			    		'error'=>'No se encuentra el usuario: '.$email
+			    );
 
-	    if(!empty($email) && !is_null($email)){
-	    	if($this->Usuario->searchUsuario($email)){
-	    		$info_usuario = $this->Usuario->getUsuarioByCuenta($email);
-	    		if($info_usuario['clave']==$pass){
+			    if(!empty($email) && !is_null($email)){
+			    	if($this->Usuario->searchUsuario($email)){
+			    		$info_usuario = $this->Usuario->getUsuarioByCuenta($email);
+			    		if($info_usuario['clave']==$pass){
 
-	    			$uriSecret = $this->encryption->encrypt($email.','.$pass);
-	    			$uriSecret = str_replace('/', '~', $uriSecret);
-	    			$uriSecret = str_replace('+', '_', $uriSecret);
-	    			$uriSecret = str_replace('=', '-', $uriSecret);
+			    			$uriSecret = $this->encryption->encrypt($email.','.$pass);
+			    			$uriSecret = str_replace('/', '~', $uriSecret);
+			    			$uriSecret = str_replace('+', '_', $uriSecret);
+			    			$uriSecret = str_replace('=', '-', $uriSecret);
 
-		    		$data_usuario = array(
-		    			'findUser'=>true,
-		    			'id_usuario'=>$info_usuario['idusuario'],
-		    			'email'=>$info_usuario['cuenta'],
-		    			'id_personal'=>$info_usuario['idPersonal'],
-		    			'id_tipo'=>$info_usuario['idtipoUsuario'],
-		    			'uri'=>$uriSecret,
-		    			'access'=>'index.php/welcome/accountUser/'
-		    		);
-	    		}
-	    	}
-	    }
-	
-			// redirect('welcome/accountUser', 'refresh');
+				    		$data_usuario = array(
+				    			'findUser'=>true,
+				    			'id_usuario'=>$info_usuario['idusuario'],
+				    			'email'=>$info_usuario['cuenta'],
+				    			'id_personal'=>$info_usuario['idPersonal'],
+				    			'id_tipo'=>$info_usuario['idtipoUsuario'],
+				    			'uri'=>$uriSecret,
+				    			'access'=>'index.php/welcome/accountUser/'
+				    		);
+			    		}
+			    	}
+			    }
 
-		$response = json_encode($data_usuario);
-		echo $response; 
+				$response = json_encode($data_usuario);
+				echo $response;
+				break;
+			case '1':
+				echo 'registrar cuenta';
+				break;
+			case '2':
+				echo 'index.php/welcome/recoverPassword/';
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+		 
 	}
 
 	public function accountUser($accesUser)
@@ -75,19 +88,29 @@ class Welcome extends CI_Controller {
 			$uriSecret = $this->encryption->decrypt($accesUser);
 			list($usuario, $pass) = explode(',', $uriSecret);
 
-			if($this->Usuario->searchUsuario($usuario)) $info_usuario = $this->Usuario->getUsuarioByCuenta($usuario);
+			if($this->Usuario->searchUsuario($usuario)) {
+				$info_usuario = $this->Usuario->getUsuarioByCuenta($usuario);
 
-			if($info_usuario['clave']==$pass){
-				$this->load->view('head');
-				$this->load->view('navMenu');
-				$this->load->view('account');
-				$this->load->view('footer');
+				if($info_usuario['clave']==$pass){
+					$this->load->view('head');
+					$this->load->view('navMenu');
+					$this->load->view('account');
+					$this->load->view('footer');
+				} else {
+					redirect('welcome', 'refresh');
+				}
 			} else {
-				redirect('welcome/index', 'refresh');
+				redirect('welcome', 'refresh');
 			}		
 		} else {
-			redirect('welcome/index', 'refresh');
+			redirect('welcome', 'refresh');
 		}
+	}
+
+	public function recoverPassword($user=null)
+	{
+		$this->load->view('head');
+		$this->load->view('forgotpassword');	
 	}
 
 }
