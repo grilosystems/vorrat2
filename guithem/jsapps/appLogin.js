@@ -15,11 +15,12 @@ app.controller('sign_in', function($scope, $http) {
 				if(response.data.findUser) {
 					window.location = response.data.access + response.data.uri;
 				} else {
-					$('#message').text(mensaje + ' - ' + response.data.error);
+					//$('#message').text(mensaje + ' - ' + response.data.error);
+					alert(response.data.error);
 				}
 			}, 
-			function error(response) {
-				alert('Error' + response);
+			function error() {
+				alert('Error al procesar la solicitud');
 		});
 	}
 

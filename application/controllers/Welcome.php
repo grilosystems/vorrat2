@@ -8,6 +8,7 @@ class Welcome extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('Usuario');
+		$this->load->model('Personal');
 		$this->load->library('encryption');
 		$this->encryption->initialize(
 			array(
@@ -29,20 +30,23 @@ class Welcome extends CI_Controller {
 		switch ($solicitud) {
 			case null:
 				$postdata = file_get_contents("php://input");
-			    $request = json_decode($postdata);
-			    $email = $request->user;
-			    $pass = $request->pass;
 
-			    $data_usuario = array(
+				if(is_null($postdata) || $postdata=='{}'){
+					$email = null;
+					$data_usuario = array(
 			    		'findUser'=>false,
-			    		'error'=>'No se encuentra el usuario: '.$email
-			    );
+			    		'error'=>'No se indico la cuenta.'
+			    	);
+				} else {
+					$request = json_decode($postdata);
+			    	$email = $request->user;
+			    	$pass = $request->pass;
+				}
 
 			    if(!empty($email) && !is_null($email)){
 			    	if($this->Usuario->searchUsuario($email)){
 			    		$info_usuario = $this->Usuario->getUsuarioByCuenta($email);
 			    		if($info_usuario['clave']==$pass){
-
 			    			$uriSecret = $this->encryption->encrypt($email.','.$pass);
 			    			$uriSecret = str_replace('/', '~', $uriSecret);
 			    			$uriSecret = str_replace('+', '_', $uriSecret);
@@ -92,6 +96,18 @@ class Welcome extends CI_Controller {
 				$info_usuario = $this->Usuario->getUsuarioByCuenta($usuario);
 
 				if($info_usuario['clave']==$pass){
+					
+					$info_personal = $this->Personal->getPersonalById($info_usuario['idPersonal']);
+					$data_usuario = array(
+						'usuario'=>$usuario,
+						'pass'=>$pass,
+						'nombre'=>$info_personal['nombre'],
+						'cargo'=>$info_personal['cargo'],
+						'tipoUsuario'=>$info_personal['tipo'],
+						'logged_in'=>true
+					);
+					
+					$this->session->set_userdata($data_usuario);
 					$this->load->view('head');
 					$this->load->view('navMenu');
 					$this->load->view('account');
@@ -117,6 +133,17 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('head');
 		$this->load->view('registeraccount');	
+	}
+
+	public function test()
+	{
+		$new_Person = array(
+			'cargo' => 'Almacen 6',
+			'nombre' => 'Rubén Perez',
+			'tipo' => '2'
+		);
+
+		$this->Personal->savePersonal($new_Person);
 	}
 
 }

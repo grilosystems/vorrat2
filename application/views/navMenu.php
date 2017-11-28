@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
+        <?php if($this->session->userdata('tipoUsuario')=='1'): ?>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Usuarios">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-users"></i>
@@ -36,6 +37,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
           </ul>
         </li>
+      <?php endif; ?>
+      <?php if($this->session->userdata('tipoUsuario')=='2' || $this->session->userdata('tipoUsuario')=='1'): ?>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Almacenes">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAlmacenes" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-industry"></i>
@@ -56,6 +59,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
           </ul>
         </li>
+        <?php endif; ?>
+        <?php if($this->session->userdata('tipoUsuario')=='3' || $this->session->userdata('tipoUsuario')=='1'): ?>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Objetos">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseObjetos" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-wrench"></i>
@@ -96,6 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
           </ul>
         </li>
+        <?php endif; ?>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
