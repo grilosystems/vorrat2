@@ -11,6 +11,10 @@
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP DATABASE vorrat;
+CREATE DATABASE vorrat;
+USE vorrat;
+
 -- ----------------------------
 --  Table structure for `almacen`
 -- ----------------------------
@@ -148,3 +152,17 @@ CREATE TABLE `vorrat_teil_bitaco` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+--  Creation of catalogs
+-- ----------------------------
+INSERT INTO `vorrat`.`tipoUsuario` ( `tipo`) VALUES ( 'Administrador');
+INSERT INTO `vorrat`.`tipoUsuario` ( `tipo`) VALUES ( 'Almacenista');
+INSERT INTO `vorrat`.`tipoUsuario` ( `tipo`) VALUES ( 'Acomodador');
+
+-- ----------------------------
+--  Creation of users
+-- ----------------------------
+INSERT INTO `vorrat`.`usuario` ( `cuenta`, `idPersonal`, `clave`, `idtipoUsuario`) VALUES ( 'admin@vorrat.com', '1', 'admin', '1');
+
+
