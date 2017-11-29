@@ -27,6 +27,8 @@ class Welcome extends CI_Controller {
 
 	public function login($solicitud=null)
 	{	
+		log_message('error', 'Crea login');
+		log_message('error', 'Solicitud: '.$solicitud);
 		switch ($solicitud) {
 			case null:
 				$postdata = file_get_contents("php://input");
@@ -61,6 +63,8 @@ class Welcome extends CI_Controller {
 				    			'uri'=>$uriSecret,
 				    			'access'=>'index.php/welcome/accountUser/'
 				    		);
+
+				    		log_message('error', 'Usuario encontrado: '.$data_usuario['email']);
 			    		}
 			    	}
 			    }
@@ -74,7 +78,6 @@ class Welcome extends CI_Controller {
 			case '2':
 				echo 'index.php/welcome/recoverPassword/';
 				break;
-			
 			default:
 				# code...
 				break;

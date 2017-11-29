@@ -53,4 +53,20 @@ class Personal extends CI_Model {
 
 		return $id; 
     }
+
+    public function deletePersonal($idpersonal)
+    {
+    	if(!empty($idpersonal) && !is_null($idpersonal)){
+    		$this->db->where('idpersonal',$idpersonal);
+    		if($this->db->delete($this->tabla)){
+    			$result = true;
+    		} else {
+    			$result = false;
+    		}
+    	} else {
+    		$result = false;
+    	}
+
+    	return $result;
+    }
 }

@@ -1,14 +1,8 @@
 /*
- Navicat Premium Data Transfer
-
- Source Server         : localGrilo
  Source Server Type    : MySQL
- Source Server Version : 50505
- Source Host           : localhost
  Source Database       : vorrat
 
  Target Server Type    : MySQL
- Target Server Version : 50505
  File Encoding         : utf-8
 
  Date: 11/13/2017 23:15:29 PM
