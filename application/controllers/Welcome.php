@@ -61,7 +61,7 @@ class Welcome extends CI_Controller {
 				    			'id_personal'=>$info_usuario['idPersonal'],
 				    			'id_tipo'=>$info_usuario['idtipoUsuario'],
 				    			'uri'=>$uriSecret,
-				    			'access'=>'index.php/welcome/accountUser/'
+				    			'access'=>'/welcome/accountUser/'
 				    		);
 
 				    		log_message('error', 'Usuario encontrado: '.$data_usuario['email']);
@@ -73,10 +73,10 @@ class Welcome extends CI_Controller {
 				echo $response;
 				break;
 			case '1':
-				echo 'index.php/welcome/newAccount/';
+				echo '/welcome/newAccount/';
 				break;
 			case '2':
-				echo 'index.php/welcome/recoverPassword/';
+				echo '/welcome/recoverPassword/';
 				break;
 			default:
 				# code...
